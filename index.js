@@ -8,20 +8,25 @@
         RtmClient = require('@slack/client').RtmClient;
 
     const
-        DOKKU_USER = 'dokku',
-
-        DOKKU_SSH_KEY = (() => {
-            if (!process.env.DOKKU_SSH_KEY) {
-                throw new Error('DOKKU_SSH_KEY is needed');
+        USER = (() => {
+            if (!process.env.USER) {
+                throw new Error('USER is needed');
             }
-            return process.env.DOKKU_SSH_KEY;
+            return process.env.USER;
         })(),
 
-        DOKKU_HOST = (() => {
-            if (!process.env.DOKKU_HOST) {
-                throw new Error('DOKKU_HOST is needed');
+        SSH_KEY = (() => {
+            if (!process.env.SSH_KEY) {
+                throw new Error('SSH_KEY is needed');
             }
-            return process.env.DOKKU_HOST;
+            return process.env.SSH_KEY;
+        })(),
+
+        HOST = (() => {
+            if (!process.env.HOST) {
+                throw new Error('HOST is needed');
+            }
+            return process.env.HOST;
         })(),
 
         SLACK_API_TOKEN = (() => {
@@ -32,9 +37,9 @@
         })();
 
     const ssh = new SSH({
-        host: DOKKU_HOST,
-        user: DOKKU_USER,
-        key:  DOKKU_SSH_KEY,
+        host: HOST,
+        user: USER,
+        key:  SSH_KEY,
     });
 
     const rtm = new RtmClient(SLACK_API_TOKEN, {
