@@ -28,7 +28,9 @@
 		}],
 		"no-trailing-spaces": "error",
 		"no-lonely-if": "error",
-		"key-spacing": "error",
+		"key-spacing": ["error", {
+            "align": "value"
+        }],
 		"comma-spacing": "error",
 		"comma-dangle": ["error", "always-multiline"],
 		"space-infix-ops": ["error", {
