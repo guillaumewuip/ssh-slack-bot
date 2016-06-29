@@ -20,5 +20,9 @@
   "bugs": {
     "url": "https://github.com/guillaumewuip/dokku-slack-bot/issues"
   },
-  "homepage": "https://github.com/guillaumewuip/dokku-slack-bot#readme"
+  "homepage": "https://github.com/guillaumewuip/dokku-slack-bot#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-eslint": "^2.0.0"
+  }
 }
