@@ -1,4 +1,4 @@
-dokku Slack bot
+SSH Slack bot
 ===========
 
 ```
