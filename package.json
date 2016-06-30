@@ -1,7 +1,7 @@
 {
-  "name": "dokku-slack-bot",
+  "name": "ssh-slack-bot",
   "version": "0.1.0",
-  "description": "A Slack bot to manage dokku",
+  "description": "A Slack bot to SSH",
   "main": "index.js",
   "engines": {
     "node": ">=6.0.0"
@@ -12,19 +12,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/guillaumewuip/dokku-slack-bot.git"
+    "url": "git+https://github.com/guillaumewuip/ssh-slack-bot.git"
   },
   "keywords": [
     "slack",
-    "dokku",
+    "ssh",
     "bot"
   ],
   "author": "Guillaume Wuip <guillaume@wuips.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/guillaumewuip/dokku-slack-bot/issues"
+    "url": "https://github.com/guillaumewuip/ssh-slack-bot/issues"
   },
-  "homepage": "https://github.com/guillaumewuip/dokku-slack-bot#readme",
+  "homepage": "https://github.com/guillaumewuip/ssh-slack-bot#readme",
   "devDependencies": {
     "gulp": "^3.9.1",
     "gulp-eslint": "^2.0.0"

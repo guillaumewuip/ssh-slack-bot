@@ -87,7 +87,6 @@
                 },
             }).start();
         }
-
     });
 
     bot.listen(
