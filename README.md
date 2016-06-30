@@ -5,6 +5,9 @@ A Slack bot to send SSH commands.
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
+![example image 1](http://i.imgur.com/WITk9iT.png)
+![example image 2](http://i.imgur.com/dCgE1S5.png)
+
 # ENV
 
 These are environment variables the bot need :
