@@ -30,7 +30,7 @@
     "gulp-eslint": "^2.0.0"
   },
   "dependencies": {
-    "@slack/client": "^3.5.0",
-    "simple-ssh": "^0.9.0"
+    "simple-ssh": "^0.9.0",
+    "slack": "^7.5.4"
   }
 }
