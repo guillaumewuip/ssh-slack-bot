@@ -105,6 +105,7 @@
             return;
         }
 
+        //match <id of user>: command ... or <id of user> command ...
         let match = message.text.match(/^\ *<@(.*)>\ *:?(.*)/);
 
         if (match && match.length === 3 && match[1] === bot.self.id) {
