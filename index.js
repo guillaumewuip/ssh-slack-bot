@@ -52,6 +52,11 @@
             key:  SSH_KEY,
         });
 
+    ssh.on('error', (err) => {
+        ssh.end();
+        throw new Error(err);
+    });
+
     bot.message((message) => {
 
         if (message.user === bot.self.id || !message.text) {
@@ -97,23 +102,28 @@
         }
     });
 
-    bot.listen(
-        {
-            token: SLACK_API_TOKEN,
-        },
-        (err, data) => {
-            if (err) {
-                throw new Error(err);
+    const startListening = (bot, token) => {
+        bot.listen(
+            {
+                token: token,
+            },
+            (err, data) => {
+                if (err) {
+                    throw new Error(err);
+                }
+
+                bot.self = data.self;
+                console.log(`Connected to Slack as ${bot.self.id}`);
             }
+        );
 
-            bot.self = data.self;
-            console.log(`Connected to Slack as ${bot.self.id}`);
-        }
-    );
+    };
 
-    ssh.on('error', (err) => {
-        ssh.end();
-        throw new Error(err);
-    });
+    ssh.exec('exit', {
+        exit: () => {
+            ssh.reset();
+            startListening(bot, SLACK_API_TOKEN);
+        },
+    }).start();
 
 })();
