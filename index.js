@@ -57,6 +57,48 @@
         throw new Error(err);
     });
 
+    const
+        sendMessage = (code, text, channel) => {
+
+            let color = code ? 'danger' : 'good';
+
+            slack.chat.postMessage({
+                token:       SLACK_API_TOKEN,
+                channel:     channel,
+                as_user:     true,
+                text:        '',
+                attachments: [{
+                    fallback:    text,
+                    author_name: `Status: ${code}`,
+                    footer:      `${SSH_USER}@${SSH_HOST}`,
+                    color:       color,
+                    text:        text,
+                    ts:          Math.floor(Date.now() / 1000),
+                }],
+            }, (err) => {
+                if (err) {
+                    throw new Error(err);
+                }
+            });
+        },
+
+        startListening = (bot, token) => {
+            bot.listen(
+                {
+                    token: token,
+                },
+                (err, data) => {
+                    if (err) {
+                        throw new Error(err);
+                    }
+
+                    bot.self = data.self;
+                    console.log(`Connected to Slack as ${bot.self.id}`);
+                }
+            );
+
+        };
+
     bot.message((message) => {
 
         if (message.user === bot.self.id || !message.text) {
@@ -69,55 +111,14 @@
 
             console.log(`Received command: ${match[2]}`);
 
-            const callback = (code, text) => {
-
-                let color = code ? 'danger' : 'good';
-
-                slack.chat.postMessage({
-                    token:       SLACK_API_TOKEN,
-                    channel:     message.channel,
-                    as_user:     true,
-                    text:        '',
-                    attachments: [{
-                        fallback:    text,
-                        author_name: `Status: ${code}`,
-                        footer:      `${SSH_USER}@${SSH_HOST}`,
-                        color:       color,
-                        text:        text,
-                        ts:          Math.floor(Date.now() / 1000),
-                    }],
-                }, (err) => {
-                    if (err) {
-                        throw new Error(err);
-                    }
-                });
-            };
-
             ssh.exec(match[2], {
                 exit: (code, stdout, stderr) => {
                     ssh.reset();
-                    return callback(code, stdout || stderr);
+                    return sendMessage(code, stdout || stderr, message.channel);
                 },
             }).start();
         }
     });
-
-    const startListening = (bot, token) => {
-        bot.listen(
-            {
-                token: token,
-            },
-            (err, data) => {
-                if (err) {
-                    throw new Error(err);
-                }
-
-                bot.self = data.self;
-                console.log(`Connected to Slack as ${bot.self.id}`);
-            }
-        );
-
-    };
 
     ssh.exec('exit', {
         exit: () => {
