@@ -8,25 +8,32 @@
         slack = require('slack');
 
     const
-        USER = (() => {
-            if (!process.env.USER) {
-                throw new Error('USER is needed');
+        SSH_USER = (() => {
+            if (!process.env.SSH_USER) {
+                throw new Error('SSH_USER is needed');
             }
-            return process.env.USER;
+            return process.env.SSH_USER;
+        })(),
+
+        SSH_HOST = (() => {
+            if (!process.env.SSH_HOST) {
+                throw new Error('SSH_HOST is needed');
+            }
+            return process.env.SSH_HOST;
+        })(),
+
+        SSH_PASSWORD = (() => {
+            if (!process.env.SSH_PASSWORD) {
+                console.log('No SSH_PASSWORD provide');
+            }
+            return process.env.SSH_PASSWORD;
         })(),
 
         SSH_KEY = (() => {
             if (!process.env.SSH_KEY) {
-                throw new Error('SSH_KEY is needed');
+                console.log('No SSH_KEY provide');
             }
             return process.env.SSH_KEY;
-        })(),
-
-        HOST = (() => {
-            if (!process.env.HOST) {
-                throw new Error('HOST is needed');
-            }
-            return process.env.HOST;
         })(),
 
         SLACK_API_TOKEN = (() => {
@@ -39,8 +46,9 @@
     const
         bot = slack.rtm.client(),
         ssh = new SSH({
-            host: HOST,
-            user: USER,
+            host: SSH_HOST,
+            user: SSH_USER,
+            pass: SSH_PASSWORD,
             key:  SSH_KEY,
         });
 
@@ -68,7 +76,7 @@
                     attachments: [{
                         fallback:    text,
                         author_name: `Status: ${code}`,
-                        footer:      `${USER}@${HOST}`,
+                        footer:      `${SSH_USER}@${SSH_HOST}`,
                         color:       color,
                         text:        text,
                         ts:          Math.floor(Date.now() / 1000),

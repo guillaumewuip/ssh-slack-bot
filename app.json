@@ -12,9 +12,13 @@
 			"description": "SSH host to connect to",
 			"require": "true"
 		},
+		"SSH_PASSWORD": {
+			"description": "SSH password",
+			"require": "false"
+		},
 		"SSH_KEY": {
 			"description": "SSH private key",
-			"require": "true"
+			"require": "false"
 		},
 		"SLACK_API_TOKEN": {
 			"description": "Slack token of your bot",
