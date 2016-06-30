@@ -110,10 +110,10 @@
 
         if (match && match.length === 3 && match[1] === bot.self.id) {
 
-            console.log(`Received command: ${match[2]}`);
-
+            console.log(`ssh ${SSH_USER}@${SSH_HOST} ${match[2]}`);
             ssh.exec(match[2], {
                 exit: (code, stdout, stderr) => {
+                    console.log(code);
                     ssh.reset();
                     return sendMessage(code, stdout || stderr, message.channel);
                 },
