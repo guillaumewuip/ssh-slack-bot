@@ -1,0 +1,24 @@
+{
+	"name": "SSH Slack bot Sample",
+	"description": "A slackbot that send ssh commands",
+	"repository": "https://github.com/guillaumewuip/ssh-slack-bot",
+	"keywords": ["node", "slack", "bot", "ssh"],
+	"env": {
+		"USER": {
+			"description": "SSH user to connect as",
+			"require": "true"
+		},
+		"HOST": {
+			"description": "SSH host to connect to",
+			"require": "true"
+		},
+		"SSH_KEY": {
+			"description": "SSH private key",
+			"require": "true"
+		},
+		"SLACK_API_TOKEN": {
+			"description": "Slack token of your bot",
+			"require": "true"
+		}
+	}
+}
