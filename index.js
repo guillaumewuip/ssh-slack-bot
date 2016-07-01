@@ -44,6 +44,13 @@
             return process.env.SSH_PREFIX_CMD + ' ';
         })(),
 
+        SSH_TIMEOUT = (() => {
+            if (!process.env.SSH_TIMEOUT) {
+                return 4;
+            }
+            return parseInt(process.env.SSH_TIMEOUT, 10);
+        })(),
+
         SLACK_API_TOKEN = (() => {
             if (!process.env.SLACK_API_TOKEN) {
                 throw new Error('SLACK_API_TOKEN is needed');
@@ -118,11 +125,23 @@
 
         if (match && match.length === 3 && match[1] === bot.self.id) {
 
-            console.log(`ssh ${SSH_USER}@${SSH_HOST} ${SSH_PREFIX_CMD}${match[2]}`);
+            const cmd = `ssh ${SSH_USER}@${SSH_HOST} ${SSH_PREFIX_CMD}${match[2]}`;
+            console.log(cmd);
+
+            //prevent interactive commands to lock the app
+            const timeout = setTimeout(() => {
+                console.warn(`Command timeout : ${cmd}`);
+                ssh.reset();
+                return sendMessage(-1, 'Command timeout', message.channel);
+            }, SSH_TIMEOUT * 1000);
+
             ssh.exec(`${SSH_PREFIX_CMD}${match[2]}`, {
                 exit: (code, stdout, stderr) => {
-                    console.log(code);
+                    clearTimeout(timeout);
                     ssh.reset();
+
+                    console.log(code);
+
                     return sendMessage(code, stdout || stderr, message.channel);
                 },
             }).start();

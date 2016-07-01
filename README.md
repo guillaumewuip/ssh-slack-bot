@@ -38,6 +38,10 @@ These are environment variables the bot need :
     `SSH_PREFIX_CMD=docker` will allow you to build a `@docker` bot. Simply
     call `@docker ps`, `@docker rm test`, ...
 
+- `SSH_TIMEOUT` : (optional, default `4` seconds) Number of seconds after the
+    server should have ended his response. Prevent interactive commands to lock
+    the app.
+
 - `SLACK_API_TOKEN` : Slack token of your bot
 
 # Use
