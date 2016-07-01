@@ -20,6 +20,10 @@
 			"description": "SSH private key",
 			"require": "false"
 		},
+		"SSH_PREFIX_CMD": {
+			"description": "String to use as prefix of every command send",
+			"require": "false"
+		},
 		"SLACK_API_TOKEN": {
 			"description": "Slack token of your bot",
 			"require": "true"

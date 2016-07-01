@@ -24,16 +24,24 @@
 
         SSH_PASSWORD = (() => {
             if (!process.env.SSH_PASSWORD) {
-                console.log('No SSH_PASSWORD provide');
+                console.log('No SSH_PASSWORD provided');
             }
             return process.env.SSH_PASSWORD;
         })(),
 
         SSH_KEY = (() => {
             if (!process.env.SSH_KEY) {
-                console.log('No SSH_KEY provide');
+                console.log('No SSH_KEY provided');
             }
             return process.env.SSH_KEY;
+        })(),
+
+        SSH_PREFIX_CMD = (() => {
+            if (!process.env.SSH_PREFIX_CMD) {
+                console.log('No SSH_PREFIX_CMD provided');
+                return '';
+            }
+            return process.env.SSH_PREFIX_CMD + ' ';
         })(),
 
         SLACK_API_TOKEN = (() => {
@@ -110,8 +118,8 @@
 
         if (match && match.length === 3 && match[1] === bot.self.id) {
 
-            console.log(`ssh ${SSH_USER}@${SSH_HOST} ${match[2]}`);
-            ssh.exec(match[2], {
+            console.log(`ssh ${SSH_USER}@${SSH_HOST} ${SSH_PREFIX_CMD}${match[2]}`);
+            ssh.exec(`${SSH_PREFIX_CMD}${match[2]}`, {
                 exit: (code, stdout, stderr) => {
                     console.log(code);
                     ssh.reset();
