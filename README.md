@@ -7,6 +7,7 @@ A Slack bot to send SSH commands.
 
 ![example image 1](http://i.imgur.com/WITk9iT.png)
 ![example image 2](http://i.imgur.com/dCgE1S5.png)
+![example image 3](http://i.imgur.com/AGMGVrD.png)
 
 # ENV
 
