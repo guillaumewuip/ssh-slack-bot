@@ -31,10 +31,12 @@ These are environment variables the bot need :
 - `SSH_PREFIX_CMD` : (optional) String to use as prefix of every command send
 
     Examples :
-        `SSH_PREFIX_CMD=ls` will allow you to build a `@ls` bot. Simply call
-        `@ls /my/dir`, `@ls -all`, ...
-        `SSH_PREFIX_CMD=docker` will allow you to build a `@docker` bot. Simply
-        call `@docker ps`, `@docker rm test`, ...
+
+    `SSH_PREFIX_CMD=ls` will allow you to build a `@ls` bot. Simply call
+    `@ls /my/dir`, `@ls -all`, ...
+
+    `SSH_PREFIX_CMD=docker` will allow you to build a `@docker` bot. Simply
+    call `@docker ps`, `@docker rm test`, ...
 
 - `SLACK_API_TOKEN` : Slack token of your bot
 
